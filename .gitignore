@@ -1,0 +1,10 @@
+rootCA.pem
+.DS_Store
+.history
+.idea/
+.vscode/
+*.swp
+
+vendor/*
+auth.json
+
