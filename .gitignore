@@ -8,3 +8,5 @@ rootCA.pem
 vendor/*
 auth.json
 
+/node_modules
+/app/etc/env.php
