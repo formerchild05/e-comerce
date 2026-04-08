@@ -1,0 +1,29 @@
+& when (@critical) {
+    .message.global {
+        &.cookie {
+            &:extend(.container);
+            padding: 0;
+            width: auto;
+            .content {
+                --container-max-width: none;
+                --container-margin: 0;
+            }
+        }
+    }
+}
+
+& when not (@critical) {
+    .message.global.cookie {
+        &:extend(.transition);
+        &[style*="none"] {
+            transform: ~"translateY(calc(100% + @{4}))";
+            opacity: 0;
+        }
+    }
+    @starting-style {
+        .message.global.cookie {
+            transform: ~"translateY(calc(100% + @{4}))";
+            opacity: 0;
+        }
+    }
+}
