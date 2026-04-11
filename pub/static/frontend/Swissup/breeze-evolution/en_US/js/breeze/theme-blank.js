@@ -1,0 +1,1 @@
+/var/www/html/vendor/swissup/theme-frontend-breeze-blank/web/js/breeze/theme-blank.js
