@@ -41,11 +41,6 @@ class InstallCommand extends AbstractSetupCommand
     public const INPUT_KEY_SALES_ORDER_INCREMENT_PREFIX = 'sales-order-increment-prefix';
 
     /**
-     * Parameter indicating command whether to install Sample Data
-     */
-    public const INPUT_KEY_USE_SAMPLE_DATA = 'use-sample-data';
-
-    /**
      * List of comma-separated module names. That must be enabled during installation.
      * Available magic param all.
      */
@@ -168,12 +163,6 @@ class InstallCommand extends AbstractSetupCommand
                 null,
                 InputOption::VALUE_REQUIRED,
                 'Sales order number prefix'
-            ),
-            new InputOption(
-                self::INPUT_KEY_USE_SAMPLE_DATA,
-                null,
-                InputOption::VALUE_NONE,
-                'Use sample data'
             ),
             new InputOption(
                 self::INPUT_KEY_ENABLE_MODULES,

@@ -41,7 +41,6 @@ use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\PatchApplier;
 use Magento\Framework\Setup\Patch\PatchApplierFactory;
-use Magento\Framework\Setup\SampleData\State;
 use Magento\Framework\Setup\SchemaPersistor;
 use Magento\Framework\Setup\SchemaSetupInterface;
 use Magento\Framework\Setup\UpgradeDataInterface;
@@ -226,11 +225,6 @@ class Installer
     private $dataSetupFactory;
 
     /**
-     * @var State
-     */
-    protected $sampleDataState;
-
-    /**
      * @var ComponentRegistrar
      */
     private $componentRegistrar;
@@ -291,7 +285,6 @@ class Installer
      * @param DbValidator $dbValidator
      * @param SetupFactory $setupFactory
      * @param DataSetupFactory $dataSetupFactory
-     * @param State $sampleDataState
      * @param ComponentRegistrar $componentRegistrar
      * @param PhpReadinessCheck $phpReadinessCheck
      * @param DtoFactoriesTable|null $dtoFactoriesTable
@@ -317,7 +310,6 @@ class Installer
         DbValidator $dbValidator,
         SetupFactory $setupFactory,
         DataSetupFactory $dataSetupFactory,
-        State $sampleDataState,
         ComponentRegistrar $componentRegistrar,
         PhpReadinessCheck $phpReadinessCheck,
         ?DtoFactoriesTable $dtoFactoriesTable = null
@@ -341,7 +333,6 @@ class Installer
         $this->dbValidator = $dbValidator;
         $this->setupFactory = $setupFactory;
         $this->dataSetupFactory = $dataSetupFactory;
-        $this->sampleDataState = $sampleDataState;
         $this->componentRegistrar = $componentRegistrar;
         $this->phpReadinessCheck = $phpReadinessCheck;
         $this->schemaPersistor = $this->objectManagerProvider->get()->get(SchemaPersistor::class);
@@ -434,9 +425,6 @@ class Installer
 
         if ($this->progress->getCurrent() != $this->progress->getTotal()) {
             throw new \LogicException('Installation progress did not finish properly.');
-        }
-        if ($this->sampleDataState->hasError()) {
-            $this->log->log('Sample Data is installed with errors. See log file for details');
         }
     }
 

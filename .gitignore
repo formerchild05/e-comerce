@@ -11,5 +11,7 @@ auth.json
 /node_modules
 /app/etc/env.php
 /var/composer_home/cache/*
-generated/*
+generated/code/*
 var/log/*
+
+

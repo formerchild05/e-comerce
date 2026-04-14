@@ -1,0 +1,58 @@
+<div style="padding:20px; background:#eee;">
+    <h2 id="weather-container">Loading weather...</h2>
+</div>
+
+<script>
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                
+                fetch('<?= $block->getUrl("weather/index/getweather") ?>', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: 'lat=' + encodeURIComponent(lat) + '&lon=' + encodeURIComponent(lon)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP ' + response.status + ': ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        const errorCode = data.code ? ' (Code: ' + data.code + ')' : '';
+                        document.getElementById('weather-container').innerHTML = '<p style="color: red; font-weight: bold;">Error: ' + data.error + errorCode + '</p>';
+                    } else if (data.weather) {
+                        const weather = data.weather;
+                        const weatherHtml = `
+                            <div style="color: #333;">
+                                <p><strong>Temperature: ${weather.main?.temp || 'N/A'}°C</strong></p>
+                                <p>Condition: ${weather.weather?.[0]?.description || 'N/A'}</p>
+                                <p>Feels like: ${weather.main?.feels_like || 'N/A'}°C</p>
+                                <p>Humidity: ${weather.main?.humidity || 'N/A'}%</p>
+                                <p>Location: ${weather.name || 'N/A'}</p>
+                            </div>
+                        `;
+                        document.getElementById('weather-container').innerHTML = weatherHtml;
+                    }
+                })
+                .catch(error => {
+                    console.error('Weather fetch error:', error);
+                    const errorMsg = error.message || 'Unknown error occurred';
+                    console.error('Full error:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
+                    document.getElementById('weather-container').innerHTML = '<p style="color: red; font-weight: bold;">Failed to fetch weather data</p><p style="color: darkred; font-size: 12px;">' + errorMsg + '</p><p style="color: darkred; font-size: 12px;">Check browser console for more details.</p>';
+                });
+            },
+            function(error) {
+                document.getElementById('weather-container').innerHTML = '<p style="color: red;">Unable to retrieve your location: ' + error.message + '</p>';
+            }
+        );
+    } else {
+        document.getElementById('weather-container').innerHTML = '<p style="color: red;">Geolocation is not supported by your browser.</p>';
+    }
+</script>

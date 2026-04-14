@@ -22,7 +22,6 @@ use Magento\Framework\Module\ModuleList;
 use Magento\Framework\Module\ModuleList\Loader;
 use Magento\Framework\Setup\ConsoleLoggerInterface;
 use Magento\Framework\Setup\FilePermissions;
-use Magento\Framework\Setup\SampleData\State;
 use Magento\Framework\Setup\SchemaPersistor;
 use Magento\Setup\Model\AdminAccountFactory;
 use Magento\Setup\Model\ConfigModel;
@@ -170,10 +169,6 @@ class InstallerFactoryTest extends TestCase
             [
                 DataSetupFactory::class,
                 $this->createMock(DataSetupFactory::class),
-            ],
-            [
-                State::class,
-                $this->createMock(State::class),
             ],
             [
                 PhpReadinessCheck::class,

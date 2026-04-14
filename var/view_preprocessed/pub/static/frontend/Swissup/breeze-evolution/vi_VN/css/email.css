@@ -1,0 +1,77 @@
+* {
+  text-size-adjust: none !important;
+  -ms-text-size-adjust: none !important;
+  -webkit-text-size-adjust: none !important;
+}
+img {
+  -ms-interpolation-mode: bicubic;
+}
+table,
+td {
+  mso-table-lspace: 0pt;
+  mso-table-rspace: 0pt;
+}
+a:not(.button-primary):not(.button):visited {
+  color: #1d4ed8 !important;
+}
+a:not(.button-primary):not(.button):hover {
+  color: #1d4ed8 !important;
+  text-decoration: underline !important;
+}
+a:not(.button-primary):not(.button):active {
+  color: #1d4ed8 !important;
+  text-decoration: underline !important;
+}
+.no-link a:not(.button-primary):not(.button) {
+  color: #111827 !important;
+  cursor: default !important;
+  text-decoration: none !important;
+}
+@media (max-width: 639.98px) {
+  html,
+  body {
+    background-color: #fff;
+    width: 100% !important;
+  }
+  .main {
+    max-width: 100% !important;
+    min-width: 240px;
+    width: auto !important;
+  }
+}
+.button .inner-wrapper td:hover {
+  background-color: #000 !important;
+}
+.button .inner-wrapper a:active,
+.button .inner-wrapper td:active {
+  background-color: #000 !important;
+}
+.button a:active,
+.button a:hover,
+.button a:visited {
+  border: 1px solid #000;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+@media (max-width: 479.98px) {
+  .button .inner-wrapper {
+    width: 100% !important;
+  }
+}
+@media (max-width: 479.98px) {
+  .order-details .address-details,
+  .order-details .method-info {
+    display: block;
+    padding: 0.5rem 0 !important;
+    width: auto !important;
+  }
+}
+@media (max-width: 479.98px) {
+  .email-features > tbody > tr > td {
+    clear: both;
+    display: block;
+    padding-top: 1rem;
+    width: auto !important;
+  }
+}
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22%5C%2Fstatic%5C%2Ffrontend%5C%2FSwissup%5C%2Fbreeze-evolution%5C%2Fvi_VN%5C%2Fcss%5C%2Femail%5C%2F_base.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22AA8BI%3BEACI%2CiCAAA%3BEACA%2CqCAAA%3BEACA%2CyCAAA%3B%3BAAGJ%3BEACI%2C%2BBAAA%3B%3BAAGJ%3BAACA%3BEACI%2CqBAAA%3BEACA%2CqBAAA%3B%3BAA4EJ%2CCAAC%2CIAAI%2CiBAAiB%2CIAAI%2CSAAS%3BEAC%5C%2FB%2CcAAA%3B%3BAAGJ%2CCAAC%2CIAAI%2CiBAAiB%2CIAAI%2CSAAS%3BEAC%5C%2FB%2CcAAA%3BEACA%2C0BAAA%3B%3BAAGJ%2CCAAC%2CIAAI%2CiBAAiB%2CIAAI%2CSAAS%3BEAC%5C%2FB%2CcAAA%3BEACA%2C0BAAA%3B%3BAAGJ%2CQAAS%2CEAAC%2CIAAI%2CiBAAiB%2CIAAI%3BEAC%5C%2FB%2CcAAA%3BEACA%2C0BAAA%3BEACA%2CgCAAA%3B%3BAAuDR%3BEAZQ%3BEACA%3BIACI%2CsBAAA%3BIACA%2CsBAAA%3B%3BEAGJ%3BIACI%2C0BAAA%3BIACA%2CgBAAA%3BIACA%2CsBAAA%3B%3B%3BAA4CR%2COACI%2CeACI%2CGAAE%3BEACE%2CsBAAA%3B%3BAAHZ%2COACI%2CeAKI%2CEAAC%3BAANT%2COACI%2CeAMI%2CGAAE%3BEACE%2CsBAAA%3B%3BAARZ%2COAYI%2CEAAC%3BAAZL%2COAaI%2CEAAC%3BAAbL%2COAcI%2CEAAC%3BEACG%2CsBAAA%3BEACA%2CWAAA%3BEACA%2CgCAAA%3B%3BAAWZ%3BEANQ%2COACI%3BIACI%2CsBAAA%3B%3B%3BAAyDhB%3BEATQ%2CcACI%3BEADJ%2CcAEI%3BIACI%2CcAAA%3BIACA%2CiBAAA%3BIACA%2CsBAAA%3B%3B%3BAAkNhB%3BEAbQ%2CeACM%2CQACI%2CKACI%3BIACE%2CWAAA%3BIACA%2CcAAA%3BIACA%2CiBAAA%3BIACA%2CsBAAA%22%7D */

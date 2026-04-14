@@ -1,0 +1,14 @@
+.fotorama__stage {
+  pointer-events: none !important;
+  left: auto !important;
+  width: auto !important;
+  height: auto !important;
+}
+.fotorama__grab {
+  max-width: none !important;
+  width: auto !important;
+}
+.fotorama__grab > div:not(.fotorama__active) {
+  display: none;
+}
+/*# sourceMappingURL=data:application/json,%7B%22version%22%3A3%2C%22sources%22%3A%5B%22%5C%2Fstatic%5C%2Ffrontend%5C%2FSwissup%5C%2Fbreeze-evolution%5C%2Fen_US%5C%2Fmage%5C%2Fgallery%5C%2Fgallery.less%22%5D%2C%22names%22%3A%5B%5D%2C%22mappings%22%3A%22AACA%3BEACI%2C%2BBAAA%3BEACA%2CqBAAA%3BEACA%2CsBAAA%3BEACA%2CuBAAA%3B%3BAAEJ%3BEACI%2C0BAAA%3BEACA%2CsBAAA%3B%3BAAFJ%2CeAGM%2CMAAG%2CIAAI%3BEACL%2CaAAA%22%7D */

@@ -1,0 +1,13 @@
+& when (@critical) {
+    @media @media-md-down {
+        .product-info-wrapper {
+            gap: @6;
+        }
+    }
+}
+
+& when not (@critical) {
+    .swatch-option:focus-visible {
+        outline-offset: 0;
+    }
+}
