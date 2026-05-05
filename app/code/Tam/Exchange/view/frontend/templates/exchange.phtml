@@ -1,0 +1,45 @@
+<?php
+/** @var \Tam\Exchange\Block\Exchange $block */
+$data = $block->getExchangeData();
+$rates = $data['rates'] ?? [];
+$dateTime = $data['date_time'] ?? '';
+?>
+<link rel="stylesheet" type="text/css" href="<?= $block->getViewFileUrl('Tam_Exchange::css/style.css') ?>" />
+<div class="exchange-widget">
+    <div class="exchange-widget__header">
+        <h2 class="exchange-widget__title">Tỷ giá</h2>
+        <?php if ($dateTime) : ?>
+            <p class="exchange-widget__subtitle">Cập nhật: <?= $block->escapeHtml($dateTime) ?></p>
+        <?php endif; ?>
+        <p class="exchange-widget__source">Nguồn: Vietcombank</p>
+    </div>
+
+    <?php if (!empty($rates)) : ?>
+        <div class="exchange-widget__table-wrap">
+            <table class="exchange-widget__table">
+                <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Tên tiền tệ</th>
+                        <th>Mua</th>
+                        <th>Chuyển khoản</th>
+                        <th>Bán</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rates as $rate) : ?>
+                        <tr>
+                            <td><?= $block->escapeHtml($rate['currency_code']) ?></td>
+                            <td><?= $block->escapeHtml($rate['currency_name']) ?></td>
+                            <td><?= $block->escapeHtml($rate['buy']) ?></td>
+                            <td><?= $block->escapeHtml($rate['transfer']) ?></td>
+                            <td><?= $block->escapeHtml($rate['sell']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php else : ?>
+        <p class="exchange-widget__empty">Không lấy được dữ liệu tỷ giá lúc này.</p>
+    <?php endif; ?>
+</div>

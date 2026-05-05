@@ -2,20 +2,29 @@
 
 namespace Nam\Weather\Helper;
 
+use Magento\Framework\App\DeploymentConfig;
 use Magento\Framework\HTTP\Client\Curl;
 
 class WeatherApi
 {
-    private $curl;
+    private const ENV_API_KEY = 'OPENWEATHER_API_KEY';
+    private const DEPLOYMENT_CONFIG_PATH = 'weather/openweathermap/api_key';
 
-    public function __construct(Curl $curl)
+    private $curl;
+    private $deploymentConfig;
+
+    public function __construct(
+        Curl $curl,
+        DeploymentConfig $deploymentConfig
+    )
     {
         $this->curl = $curl;
+        $this->deploymentConfig = $deploymentConfig;
     }
 
     public function fetchWeatherData($lat, $lon)
     {
-        $apiKey = 'ea9c7d98a5d7b20f4f98adcf7e877e0f';
+        $apiKey = $this->getApiKey();
         $query = http_build_query([
             'lat' => $lat,
             'lon' => $lon,
@@ -50,5 +59,20 @@ class WeatherApi
         }
 
         return $data;
+    }
+
+    private function getApiKey(): string
+    {
+        $apiKey = (string) ($this->deploymentConfig->get(self::DEPLOYMENT_CONFIG_PATH) ?? getenv(self::ENV_API_KEY));
+        $apiKey = trim($apiKey);
+
+        if ($apiKey === '') {
+            throw new \RuntimeException(
+                'OpenWeatherMap API key is missing. Set env var ' . self::ENV_API_KEY
+                . ' or app/etc/env.php value at path ' . self::DEPLOYMENT_CONFIG_PATH
+            );
+        }
+
+        return $apiKey;
     }
 }

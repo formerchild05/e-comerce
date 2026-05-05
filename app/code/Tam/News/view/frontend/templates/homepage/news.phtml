@@ -1,0 +1,49 @@
+<?php
+/** @var \Tam\News\Block\News $block */
+$data = $block->getNewsData();
+$items = $block->getLatestItems(5);
+$pubDate = $data['pub_date'] ?? '';
+$error = $data['error'] ?? '';
+?>
+<link rel="stylesheet" type="text/css" href="<?= $block->getViewFileUrl('Tam_News::css/style.css') ?>" />
+<div class="news-widget news-widget--homepage">
+    <div class="news-widget__header">
+        <h2 class="news-widget__title">Tin kinh doanh</h2>
+    </div>
+
+    <?php if ($error) : ?>
+        <p class="news-widget__error"><?= $block->escapeHtml($error) ?></p>
+    <?php endif; ?>
+
+    <?php if (!empty($items)) : ?>
+        <div class="news-widget__grid">
+            <?php foreach ($items as $item) : ?>
+                <article class="news-widget__card">
+                    <?php if (!empty($item['image_url'])) : ?>
+                        <a class="news-widget__image-wrap" href="<?= $block->escapeUrl($item['link']) ?>" target="_blank" rel="noopener noreferrer">
+                            <img class="news-widget__image" src="<?= $block->escapeUrl($item['image_url']) ?>" alt="<?= $block->escapeHtmlAttr($item['title']) ?>" loading="lazy" />
+                        </a>
+                    <?php endif; ?>
+
+                    <div class="news-widget__content">
+                        <h3 class="news-widget__item-title">
+                            <a href="<?= $block->escapeUrl($item['link']) ?>" target="_blank" rel="noopener noreferrer">
+                                <?= $block->escapeHtml($item['title']) ?>
+                            </a>
+                        </h3>
+
+                        <?php if (!empty($item['pub_date'])) : ?>
+                            <p class="news-widget__item-date"><?= $block->escapeHtml($item['pub_date']) ?></p>
+                        <?php endif; ?>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="news-widget__footer">
+            <a class="news-widget__more-link" href="<?= $block->escapeUrl($block->getNewsPageUrl()) ?>">Xem thêm</a>
+        </div>
+    <?php else : ?>
+        <p class="news-widget__empty">Khong co du lieu tin tuc luc nay.</p>
+    <?php endif; ?>
+</div>

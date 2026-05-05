@@ -41,6 +41,7 @@ namespace Magento\Setup\Test\Unit\Model {
     use Magento\Framework\Setup\FilePermissions;
     use Magento\Framework\Setup\Patch\PatchApplier;
     use Magento\Framework\Setup\Patch\PatchApplierFactory;
+    use Magento\Framework\Setup\SampleData\State;
     use Magento\Framework\Setup\SchemaListener;
     use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
     use Magento\Framework\Validation\ValidationException;
@@ -175,6 +176,11 @@ namespace Magento\Setup\Test\Unit\Model {
         private $dataSetupFactory;
 
         /**
+         * @var State|MockObject
+         */
+        private $sampleDataState;
+
+        /**
          * @var ComponentRegistrar|MockObject
          */
         private $componentRegistrar;
@@ -271,6 +277,7 @@ namespace Magento\Setup\Test\Unit\Model {
             $this->dbValidator = $this->createMock(DbValidator::class);
             $this->setupFactory = $this->createMock(SetupFactory::class);
             $this->dataSetupFactory = $this->createMock(DataSetupFactory::class);
+            $this->sampleDataState = $this->createMock(State::class);
             $this->componentRegistrar =
                 $this->createMock(ComponentRegistrar::class);
             $this->phpReadinessCheck = $this->createMock(PhpReadinessCheck::class);
@@ -328,6 +335,7 @@ namespace Magento\Setup\Test\Unit\Model {
                     'dbValidator' => $this->dbValidator,
                     'setupFactory' => $this->setupFactory,
                     'dataSetupFactory' => $this->dataSetupFactory,
+                    'sampleDataState' => $this->sampleDataState,
                     'componentRegistrar' => $this->componentRegistrar,
                     'phpReadinessCheck' => $this->phpReadinessCheck,
                 ])
@@ -467,6 +475,7 @@ namespace Magento\Setup\Test\Unit\Model {
             $this->adminFactory->expects($this->any())->method('create')->willReturn(
                 $this->createMock(AdminAccount::class)
             );
+            $this->sampleDataState->expects($this->once())->method('hasError')->willReturn(true);
             $this->phpReadinessCheck->expects($this->once())->method('checkPhpExtensions')->willReturn(
                 ['responseType' => ResponseTypeInterface::RESPONSE_TYPE_SUCCESS]
             );
@@ -546,7 +555,8 @@ namespace Magento\Setup\Test\Unit\Model {
                         ['Post installation file permissions check...'],
                         ['Write installation date...'],
                         ['Indexing...'],
-                        ['13 indexer(s) are indexed.']
+                        ['13 indexer(s) are indexed.'],
+                        ['Sample Data is installed with errors. See log file for details']
                     ],
                     'logMetaMessages' => [
                         ['Starting Magento installation:'],
@@ -620,7 +630,8 @@ namespace Magento\Setup\Test\Unit\Model {
                         ['Post installation file permissions check...'],
                         ['Write installation date...'],
                         ['Indexing...'],
-                        ['13 indexer(s) are indexed.']
+                        ['13 indexer(s) are indexed.'],
+                        ['Sample Data is installed with errors. See log file for details']
                     ],
                     'logMetaMessages' => [
                         ['Starting Magento installation:'],
@@ -815,6 +826,7 @@ namespace Magento\Setup\Test\Unit\Model {
             $this->adminFactory->expects($this->any())->method('create')->willReturn(
                 $this->createMock(AdminAccount::class)
             );
+            $this->sampleDataState->expects($this->once())->method('hasError')->willReturn(true);
             $this->phpReadinessCheck->expects($this->once())->method('checkPhpExtensions')->willReturn(
                 ['responseType' => ResponseTypeInterface::RESPONSE_TYPE_SUCCESS]
             );
@@ -893,7 +905,8 @@ namespace Magento\Setup\Test\Unit\Model {
                         ['Post installation file permissions check...'],
                         ['Write installation date...'],
                         ['Indexing...'],
-                        ['13 indexer(s) are indexed.']
+                        ['13 indexer(s) are indexed.'],
+                        ['Sample Data is installed with errors. See log file for details']
                     ],
                     'logMetaMessages' => [
                         ['Starting Magento installation:'],
@@ -1100,6 +1113,8 @@ namespace Magento\Setup\Test\Unit\Model {
                         [RemoteStorageValidator::class, $remoteStorageValidatorMock]
                     ]
                 );
+
+            $this->sampleDataState->expects(static::never())->method('hasError');
 
             $this->phpReadinessCheck->expects(static::once())->method('checkPhpExtensions')->willReturn(
                 ['responseType' => ResponseTypeInterface::RESPONSE_TYPE_SUCCESS]
@@ -1320,6 +1335,7 @@ namespace Magento\Setup\Test\Unit\Model {
             $this->adminFactory->expects(static::any())->method('create')->willReturn(
                 $this->createMock(AdminAccount::class)
             );
+            $this->sampleDataState->expects(static::once())->method('hasError')->willReturn(true);
             $this->phpReadinessCheck->expects(static::once())->method('checkPhpExtensions')->willReturn(
                 ['responseType' => ResponseTypeInterface::RESPONSE_TYPE_SUCCESS]
             );
@@ -1474,6 +1490,8 @@ namespace Magento\Setup\Test\Unit\Model {
                         [Registry::class, $registry]
                     ]
                 );
+
+            $this->sampleDataState->expects(static::never())->method('hasError');
 
             $this->phpReadinessCheck->expects(static::once())->method('checkPhpExtensions')->willReturn(
                 ['responseType' => ResponseTypeInterface::RESPONSE_TYPE_SUCCESS]

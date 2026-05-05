@@ -361,6 +361,7 @@ return [
         'Magento_WishlistGraphQl' => 1,
         'Nam_ContactUs' => 1,
         'Nam_HelloWorld' => 1,
+        'Nam_LatestProduct' => 1,
         'Nam_Weather' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeCustomerBalance' => 1,
@@ -371,6 +372,8 @@ return [
         'PayPal_BraintreeReward' => 1,
         'Swissup_Breeze' => 1,
         'Swissup_BreezeIntegrations' => 1,
-        'Swissup_Rtl' => 1
+        'Swissup_Rtl' => 1,
+        'Tam_Exchange' => 1,
+        'Tam_News' => 1
     ]
 ];

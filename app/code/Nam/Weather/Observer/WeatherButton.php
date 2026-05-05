@@ -8,6 +8,8 @@ use Magento\Framework\UrlInterface;
 
 class WeatherButton implements ObserverInterface
 {
+    private const MENU_LABEL = 'Thời tiết';
+
     private NodeFactory $nodeFactory;
     private UrlInterface $urlBuilder;   
     public function __construct(NodeFactory $nodeFactory, UrlInterface $urlBuilder)
@@ -28,7 +30,7 @@ class WeatherButton implements ObserverInterface
         $tree = $menu->getTree();
 
         $nodeData = [
-            'name' => __('Weather'),
+            'name' => __(self::MENU_LABEL),
             'id' => 'weather-link',
             'url' => $this->urlBuilder->getUrl('weather'),
             'is_active' => false,

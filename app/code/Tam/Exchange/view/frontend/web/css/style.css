@@ -1,0 +1,77 @@
+.exchange-widget {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+    background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%);
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.exchange-widget__header {
+    margin-bottom: 20px;
+}
+
+.exchange-widget__title {
+    margin: 0 0 8px;
+    font-size: clamp(24px, 3vw, 34px);
+    color: #0f172a;
+}
+
+.exchange-widget__subtitle,
+.exchange-widget__source,
+.exchange-widget__empty {
+    margin: 0;
+    color: #475569;
+}
+
+.exchange-widget__source {
+    margin-top: 4px;
+    font-size: 13px;
+}
+
+.exchange-widget__table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+}
+
+.exchange-widget__table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 720px;
+}
+
+.exchange-widget__table th,
+.exchange-widget__table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+.exchange-widget__table th {
+    background: #0f172a;
+    color: #fff;
+    font-weight: 600;
+}
+
+.exchange-widget__table tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+.exchange-widget__table tbody tr:hover {
+    background: #eff6ff;
+}
+
+@media (max-width: 768px) {
+    .exchange-widget {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .exchange-widget__table th,
+    .exchange-widget__table td {
+        padding: 12px 14px;
+    }
+}

@@ -1,8 +1,91 @@
-<div style="padding:20px; background:#eee;">
-    <h2 id="weather-container">Loading weather...</h2>
+<link rel="stylesheet" type="text/css" href="<?= $block->getViewFileUrl('Nam_Weather::css/style.css') ?>" />
+<div class="current">
+    <div class="weather-widget">
+        <div class="weather-widget__message" id="weather-container">Để xem thời tiết, vui lòng cho phép trang web truy cập vị trí của bạn.</div>
+    </div>
 </div>
 
 <script>
+    const weatherIconMap = {
+        Thunderstorm: '<?= $block->getViewFileUrl('Nam_Weather::images/thunderstorm.png') ?>',
+        Drizzle: '<?= $block->getViewFileUrl('Nam_Weather::images/drizzle.png') ?>',
+        Rain: '<?= $block->getViewFileUrl('Nam_Weather::images/rain.png') ?>',
+        Snow: '<?= $block->getViewFileUrl('Nam_Weather::images/snow.png') ?>',
+        Atmosphere: '<?= $block->getViewFileUrl('Nam_Weather::images/atmosphere.png') ?>',
+        Clear: '<?= $block->getViewFileUrl('Nam_Weather::images/clear.png') ?>',
+        Clouds: '<?= $block->getViewFileUrl('Nam_Weather::images/clouds.png') ?>'
+    };
+
+    const DESC_MAP = {
+    // Thunderstorm
+    "thunderstorm with light rain": "Giông kèm mưa nhẹ",
+    "thunderstorm with rain": "Giông kèm mưa",
+    "thunderstorm with heavy rain": "Giông kèm mưa lớn",
+    "light thunderstorm": "Giông nhẹ",
+    "thunderstorm": "Giông",
+    "heavy thunderstorm": "Giông mạnh",
+    "ragged thunderstorm": "Giông không ổn định",
+    "thunderstorm with light drizzle": "Giông kèm mưa phùn nhẹ",
+    "thunderstorm with drizzle": "Giông kèm mưa phùn",
+    "thunderstorm with heavy drizzle": "Giông kèm mưa phùn lớn",
+
+    // Drizzle
+    "light intensity drizzle": "Mưa phùn nhẹ",
+    "drizzle": "Mưa phùn",
+    "heavy intensity drizzle": "Mưa phùn nặng",
+    "light intensity drizzle rain": "Mưa phùn nhẹ kèm mưa",
+    "drizzle rain": "Mưa phùn kèm mưa",
+    "heavy intensity drizzle rain": "Mưa phùn nặng kèm mưa",
+    "shower rain and drizzle": "Mưa rào kèm mưa phùn",
+    "heavy shower rain and drizzle": "Mưa rào lớn kèm mưa phùn",
+    "shower drizzle": "Mưa phùn dạng rào",
+
+    // Rain
+    "light rain": "Mưa nhẹ",
+    "moderate rain": "Mưa vừa",
+    "heavy intensity rain": "Mưa to",
+    "very heavy rain": "Mưa rất to",
+    "extreme rain": "Mưa cực lớn",
+    "freezing rain": "Mưa đóng băng",
+    "light intensity shower rain": "Mưa rào nhẹ",
+    "shower rain": "Mưa rào",
+    "heavy intensity shower rain": "Mưa rào lớn",
+    "ragged shower rain": "Mưa rào không đều",
+
+    // Snow
+    "light snow": "Tuyết nhẹ",
+    "snow": "Tuyết",
+    "heavy snow": "Tuyết dày",
+    "sleet": "Mưa tuyết",
+    "light shower sleet": "Mưa tuyết nhẹ",
+    "shower sleet": "Mưa tuyết rào",
+    "light rain and snow": "Mưa và tuyết nhẹ",
+    "rain and snow": "Mưa và tuyết",
+    "light shower snow": "Tuyết rào nhẹ",
+    "shower snow": "Tuyết rào",
+    "heavy shower snow": "Tuyết rào dày",
+
+    // Atmosphere
+    "mist": "Sương nhẹ",
+    "smoke": "Khói",
+    "haze": "Sương mù nhẹ",
+    "sand/dust whirls": "Gió xoáy bụi/cát",
+    "fog": "Sương mù dày",
+    "sand": "Cát",
+    "dust": "Bụi",
+    "volcanic ash": "Tro núi lửa",
+    "squalls": "Gió giật mạnh",
+    "tornado": "Lốc xoáy",
+
+    // Clear
+    "clear sky": "Trời quang",
+
+    // Clouds
+    "few clouds": "Ít mây",
+    "scattered clouds": "Mây rải rác",
+    "broken clouds": "Mây nhiều",
+    "overcast clouds": "Trời nhiều mây"
+    };
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function(position) {
@@ -26,16 +109,42 @@
                 .then(data => {
                     if (data.error) {
                         const errorCode = data.code ? ' (Code: ' + data.code + ')' : '';
-                        document.getElementById('weather-container').innerHTML = '<p style="color: red; font-weight: bold;">Error: ' + data.error + errorCode + '</p>';
+                        document.getElementById('weather-container').innerHTML = '<p class="weather-widget__error">Error: ' + data.error + errorCode + '</p>';
                     } else if (data.weather) {
+                        document.getElementById('weather-container').className = 'weather-widget__message weather-widget__message--result';
                         const weather = data.weather;
+                        const weatherMain = weather.weather?.[0]?.main || '';
+                        const weatherIcon = weatherIconMap[weatherMain] || '';
+                        const humidityIcon = '<?= $block->getViewFileUrl('Nam_Weather::images/humidity.png') ?>';
+                        const tempIcon = '<?= $block->getViewFileUrl('Nam_Weather::images/temperature.png') ?>';
                         const weatherHtml = `
-                            <div style="color: #333;">
-                                <p><strong>Temperature: ${weather.main?.temp || 'N/A'}°C</strong></p>
-                                <p>Condition: ${weather.weather?.[0]?.description || 'N/A'}</p>
-                                <p>Feels like: ${weather.main?.feels_like || 'N/A'}°C</p>
-                                <p>Humidity: ${weather.main?.humidity || 'N/A'}%</p>
-                                <p>Location: ${weather.name || 'N/A'}</p>
+                            <div class="weather-widget__card">
+                                <div class="weather-widget__layout">
+                                    <div class="weather-widget__summary">
+                                        <p class="weather-widget__location">${weather.name || 'N/A'}, ${weather.sys?.country || 'N/A'}</p>
+                                        ${weatherIcon ? `<img class="weather-widget__icon" src="${weatherIcon}" alt="${weatherMain}" />` : ''}
+                                        <p class="weather-widget__description">${DESC_MAP[weather.weather?.[0]?.description] || 'N/A'}</p>
+                                        <p class="weather-widget__temp"><strong>${weather.main?.temp || 'N/A'}°C</strong></p>
+                                    </div>
+
+                                    <div class="weather-widget__details">
+                                        <div class="weather-widget__detail">
+                                            <img src="${humidityIcon}" alt="Humidity" />
+                                            <p>${weather.main?.humidity || 'N/A'}%</p>
+                                        </div>
+
+                                        <div class="weather-widget__temp-range">
+                                            <p>${weather.main.temp_max || 'N/A'}°C</p>
+                                            <img src="${tempIcon}" alt="Temperature" />
+                                            <p>${weather.main.temp_min || 'N/A'}°C</p>
+                                        </div>
+
+                                        <div class="weather-widget__detail">
+                                            <img src="<?= $block->getViewFileUrl('Nam_Weather::images/wind.png') ?>" alt="Wind Speed" />
+                                            <p>${weather.wind?.speed || 'N/A'} m/s</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         `;
                         document.getElementById('weather-container').innerHTML = weatherHtml;
@@ -45,14 +154,65 @@
                     console.error('Weather fetch error:', error);
                     const errorMsg = error.message || 'Unknown error occurred';
                     console.error('Full error:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
-                    document.getElementById('weather-container').innerHTML = '<p style="color: red; font-weight: bold;">Failed to fetch weather data</p><p style="color: darkred; font-size: 12px;">' + errorMsg + '</p><p style="color: darkred; font-size: 12px;">Check browser console for more details.</p>';
+                    document.getElementById('weather-container').innerHTML = '<p class="weather-widget__error">Failed to fetch weather data</p><p class="weather-widget__hint">' + errorMsg + '</p><p class="weather-widget__hint">Check browser console for more details.</p>';
                 });
             },
             function(error) {
-                document.getElementById('weather-container').innerHTML = '<p style="color: red;">Unable to retrieve your location: ' + error.message + '</p>';
+                document.getElementById('weather-container').innerHTML = '<p class="weather-widget__error">Unable to retrieve your location: ' + error.message + '</p>';
             }
         );
     } else {
-        document.getElementById('weather-container').innerHTML = '<p style="color: red;">Geolocation is not supported by your browser.</p>';
+        document.getElementById('weather-container').innerHTML = '<p class="weather-widget__error">Geolocation is not supported by your browser.</p>';
     }
 </script>
+
+
+<!-- 
+json return sample:
+{
+    "coord": {
+        "lon": 105.7784,
+        "lat": 21.0174
+    },
+    "weather": [
+        {
+            "id": 800,
+            "main": "Clear",
+            "description": "clear sky",
+            "icon": "01n"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 27.03,
+        "feels_like": 30.5,
+        "temp_min": 27.03,
+        "temp_max": 27.03,
+        "pressure": 1006,
+        "humidity": 87,
+        "sea_level": 1006,
+        "grnd_level": 1004
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 5.62,
+        "deg": 138,
+        "gust": 11.65
+    },
+    "clouds": {
+        "all": 1
+    },
+    "dt": 1776186608,
+    "sys": {
+        "type": 1,
+        "id": 9308,
+        "country": "VN",
+        "sunrise": 1776206294,
+        "sunset": 1776251723
+    },
+    "timezone": 25200,
+    "id": 1581364,
+    "name": "Ha Dong",
+    "cod": 200
+}
+-->
