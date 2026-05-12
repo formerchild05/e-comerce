@@ -16,3 +16,5 @@ var/log/*
 
 
 pub/media/theme/preview
+var/view_preprocessed/
+pub/static/frontend/**/vi_VN/
