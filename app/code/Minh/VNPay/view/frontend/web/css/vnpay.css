@@ -1,0 +1,32 @@
+.minh-payment-label {
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    gap: 14px;
+    margin: 0;
+}
+
+.minh-payment-logo {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 46px;
+    object-fit: contain;
+    padding: 4px 10px;
+    width: 104px;
+}
+
+.minh-payment-description {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0 0 18px;
+}
+
+@media (max-width: 639px) {
+    .minh-payment-label {
+        gap: 10px;
+    }
+}

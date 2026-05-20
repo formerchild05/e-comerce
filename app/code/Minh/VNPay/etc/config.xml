@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <minh_vnpay>
+                <active>1</active>
+                <model>Minh\VNPay\Model\Payment\VNPay</model>
+                <order_status>pending_payment</order_status>
+                <title>VNPay</title>
+                <payment_url>https://sandbox.vnpayment.vn/paymentv2/vpcpay.html</payment_url>
+                <tmn_code>8JBIU6GP</tmn_code>
+                <hash_secret>54GK05Q5KPFVSWNDJRJFIR3VH2GOI5W0</hash_secret>
+                <version>2.1.0</version>
+                <command>pay</command>
+                <order_type>other</order_type>
+                <locale>vn</locale>
+                <allowspecific>0</allowspecific>
+                <sort_order>10</sort_order>
+                <debug>0</debug>
+                <group>online</group>
+            </minh_vnpay>
+        </payment>
+    </default>
+</config>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <minh_zalopay>
+                <active>0</active>
+                <model>Minh\ZaloPay\Model\Payment\ZaloPay</model>
+                <order_status>pending_payment</order_status>
+                <title>ZaloPay</title>
+                <app_id>554</app_id>
+                <key1>8NdU5pG5R2spGHGhyO99HN1OhD8IQJBn</key1>
+                <key2>uUfsWgfLkRLzq6W2uNXTCxrfxs51auny</key2>
+                <create_order_url>https://sb-openapi.zalopay.vn/v2/create</create_order_url>
+                <query_order_url>https://sb-openapi.zalopay.vn/v2/query</query_order_url>
+                <preferred_payment_method></preferred_payment_method>
+                <allowspecific>0</allowspecific>
+                <sort_order>11</sort_order>
+                <debug>0</debug>
+                <group>online</group>
+            </minh_zalopay>
+        </payment>
+    </default>
+</config>
